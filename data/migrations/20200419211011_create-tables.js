@@ -1,6 +1,6 @@
 
 exports.up = function(knex) {
-    knex.schema.createTable("resources", tbl => {
+    return knex.schema.createTable("resources", tbl => {
         tbl.increments();
         tbl.string("name").notNullable().unique();
         tbl.string("description").nullable().defaultTo(null);
