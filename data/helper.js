@@ -100,6 +100,6 @@ module.exports = {
     updateProject,
 
     getProjectTasks,
-    addProjectTask
+    addProjectTask,
     updateTask,
 }
