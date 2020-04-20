@@ -66,7 +66,7 @@ function updateResource(id, resource) {
             if (res2) {
                 return db("resources")
                     .where({id})
-                    .update(resouce)
+                    .update(resource)
             } else {
                 return null;
             }
