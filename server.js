@@ -77,7 +77,7 @@ server.post("/projects", validateProject, (req, res) => {
 })
 
 server.post("/projects/:id/tasks", validateTask, (req, res) => {
-    helper.addProjectTask(req.params.id)
+    helper.addProjectTask(req.params.id, req.body)
         .then(res2 => {
             res.status(status.CREATED).json(res2);
         })
@@ -85,6 +85,8 @@ server.post("/projects/:id/tasks", validateTask, (req, res) => {
             res.status(status.INTERNAL_SERVER_ERROR).json({error: err})
         })
 })
+
+
 
 server.post("/resources", validateResource, (req, res) => {
     helper.addResource(req.body)
