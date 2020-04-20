@@ -79,19 +79,63 @@ server.post("/projects", validateProject, (req, res) => {
 server.post("/projects/:id/tasks", validateTask, (req, res) => {
     helper.addProjectTask(req.params.id, req.body)
         .then(res2 => {
-            res.status(status.CREATED).json(res2);
+            if (res2) {
+                res.status(status.CREATED).json(res2);
+            } else {
+                res.status(status.BAD_REQUEST).json({error: "Unable to retrieve project with given ID"})
+            }
         })
         .catch(err => {
             res.status(status.INTERNAL_SERVER_ERROR).json({error: err})
         })
 })
 
-
-
 server.post("/resources", validateResource, (req, res) => {
     helper.addResource(req.body)
         .then(res2 => {
             res.status(status.CREATED).json(res2[0]);
+        })
+        .catch(err => {
+            res.status(status.INTERNAL_SERVER_ERROR).json({error: err})
+        })
+})
+
+server.put("/projects/:id", validateProject, (req, res) => {
+    helper.updateProject(req.params.id, req.body)
+        .then(res2 => {
+            if (res2) {
+                res.status(status.OK).json(res2);
+            } else {
+                res.status(status.BAD_REQUEST).json({error: "Unable to update project with given ID"})
+            }
+        })
+        .catch(err => {
+            res.status(status.INTERNAL_SERVER_ERROR).json({error: err})
+        })
+})
+
+server.put("/tasks/:id", validateTask, (req, res) => {
+    helper.updateTask(req.params.id, req.body)
+        .then(res2 => {
+            if (res2) {
+                res.status(status.OK).json(res2);
+            } else {
+                res.status(status.BAD_REQUEST).json({error: "Unable to update task with given ID"})
+            }
+        })
+        .catch(err => {
+            res.status(status.INTERNAL_SERVER_ERROR).json({error: err})
+        })
+})
+
+server.put("/resources/:id", validateResource, (req, res) => {
+    helper.updateResource(req.params.id, req.body)
+        .then(res2 => {
+            if (res2) {
+                res.status(status.OK).json(res2);
+            } else {
+                res.status(status.BAD_REQUEST).json({error: "Unable to update resource with given ID"})
+            }
         })
         .catch(err => {
             res.status(status.INTERNAL_SERVER_ERROR).json({error: err})
